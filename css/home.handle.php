@@ -5,10 +5,4 @@
 <?php
 	$b="<script>document.write(ss);</script>";
 	echo $b;
-
-
-
-
-
-	
 ?>

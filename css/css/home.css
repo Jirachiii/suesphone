@@ -8,65 +8,6 @@
 /*}*/
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'ËÎÌו' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
 /*.masthead{padding:60px 0 80px;margin-bottom:0;color:#fff}*/
-.mybtn2{
-	border-radius: 0;
-}
-
-.myborder{
-	border-radius: 5px;
-}
-.myselect{
-
-	padding: 0;
-	width: 43%;
-	height: 34px;
-
-	text-indent: 10px;
-}
-
-.mykuang{
-	border-radius: 20px;
-	background-color: #eee;
-	margin-top: 30px;
-	margin-bottom: 30px;
-	padding-top: 20px;
-}
-
-.myjub{
-	border-radius: 20px;
-}
-.mybar{
-	border-radius: 0px;}
-
-
-	table  tr td {
-				border: 2px solid;
-				width:5%;
-			}
-			th{
-				border: 2px solid;
-				width:5%;
-			}
-			.mycenter{
-				margin: 0 auto;
-			}
-
-			.foot{
-				font-size: 4px;
-			}
-			body{
-				padding: 0;
-				margin: 0;
-				border: 0;
-				background-color: #cfd5e1
-			}
-
-
-
-
-
-
-
 .jumbotron1{
 	background:url(../images/2.jpg);
 	margin-top: -20px;
