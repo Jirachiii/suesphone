@@ -3,11 +3,11 @@
 	if(!isset($_SESSION["a"]))
 	{
 		$_SESSION["a"]="1";
-		$sql="select * from suesphone";
+		$sql="select * from suesphone order by department";
 	}
 	else if(empty($_GET["sel"]))
 	{
-		$sql="select * from suesphone";
+		$sql="select * from suesphone order by department";
 	}
 	else
 	{
@@ -47,7 +47,7 @@
 ?>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html> 
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -63,7 +63,7 @@
 		</style>
 	</head>
 		
-<body>
+<body onload="autoRowSpan(document.getElementById('tb'),0,0)">
 <nav class="navbar navbar-inverse mybar" role="navigation">
 		<div class="navbar-header">
 			
@@ -100,7 +100,7 @@
 		
 </div>
 <div class="container mykuang" >
-	<table class="mycenter ">
+	<table  id="tb" class="mycenter " >
 		<tr>
 			<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th>
 		</tr>
@@ -111,11 +111,13 @@
 			}
 			else
 			{
-				foreach ($data as $value) 
+				foreach ($data as $index=>$value) 
 				{
-		?>
+					// $depart[$index]=$value['department'];
+					// $onerow[$index]=array($value["department"],$value["office"],$value["address"],$value["phone"]);
+		?>		
 				<tr>
-					<td><?php echo $value['department']?></td>
+					<td name="<?php echo $value['department']?>"><?php echo $value['department']?></td>
 					<td><?php echo $value['office']?></td>
 					<td><?php echo $value['address']?></td>
 					<td><a href="tel:<?php echo $value['phone']?>"><?php echo $value['phone']?></a></td>
@@ -128,8 +130,40 @@
 	<br><br><br>
 </div>
 </div>	
+
+<?php 
+
+// var_dump($depart);
+// var_dump($onerow);
+	
+?>
+
+
+
+
 <footer>
 		<p class="text-center">©2016-2025 sues.edu.cn,All Rights Reserved. </p>
 </footer>
-	</body>
+</body>
+ <script type="text/javascript">
+ function autoRowSpan(tb,row,col)  
+    {  
+        var lastValue="";  
+        var value="";  
+        var pos=1;  
+        for(var i=row;i<tb.rows.length;i++)  
+        {  
+            value = tb.rows[i].cells[col].innerText;  
+            if(lastValue == value)  
+            {  
+                tb.rows[i].deleteCell(col);  
+                tb.rows[i-pos].cells[col].rowSpan = tb.rows[i-pos].cells[col].rowSpan+1;  
+                pos++;  
+            }else{  
+                lastValue = value;  
+                pos=1;  
+            }  
+        }  
+    }  
+ </script>
 </html>
