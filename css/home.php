@@ -1,8 +1,8 @@
 <?php
 	require_once('connect.php');
-	if(!isset($_SESSION["b"]))
+	if(!isset($_SESSION["a"]))
 	{
-		$_SESSION["b"]="1";
+		$_SESSION["a"]="1";
 		$sql="select * from suesphone";
 	}
 	else if(empty($_GET["sel"]))
@@ -11,8 +11,8 @@
 	}
 	else
 	{
-		$_SESSION["b"]=$_GET["sel"];
-		$sql="select * from suesphone where department='$_SESSION[b]'";
+		$_SESSION["a"]=$_GET["sel"];
+		$sql="select * from suesphone where department='$_SESSION[a]'";
 	}
 	
 	$query=mysqli_query($con,$sql);
@@ -70,21 +70,11 @@
 			.mycenter{
 				margin: 0 auto;
 			}
-			.tth{
-				width:2%;
-			}
 		</style>
 	<body>
-<nav class="navbar navbar-inverse mybar" role="navigation">
-		<div class="navbar-header">
-			
-			<a class="navbar-brand" >上海工程技术大学电话导航</a>
-		</div>
-		
-</nav>
-<div class="container">
-<form action="admin.php" method="get">
-	<select name="sel" name="sel" class="myselect">
+
+<form action="home.php" method="get">
+	<select name="sel" name="sel">
 <?php
 	if(empty($datai))
 	{
@@ -94,59 +84,43 @@
 	{
 		foreach ($datai as $valuei) 
 		{
-?>	
+		?>	
 		<option value="<?php echo $valuei['department']?>"><?php echo $valuei['department']?></option>
 <?php
 		}
 	}		
 ?>
 	</select>
-	<input class="btn btn-primary" type="submit" value="查询">
-	<a href="add.php" class="btn btn-primary pull-right">添加</a>	
+	<input type="submit" value="确认">
 </form>
 
-</div>
-<br><br>
-	
-
-
-<div class="container">
-<table class="">
-	<tr>
-		<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th><th class="tth">操作</th>
-	</tr>
-	<?php
-		if(empty($data))
-		{
-			echo "数据不存在";
-		}
-		else
-		{
-			foreach ($data as $k=>$value) 
+	<div >
+	<table class="mycenter">
+		<tr>
+			<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th>
+		</tr>
+		<?php
+			if(empty($data))
 			{
-	?>
-
-		<form onsubmit="return confirm('确定执行该操作吗？');"action="delete.handle.php" method="get">
-			<tr>
-				<td name="department"><?php echo $value['department']?></td>
-				<td name="office"><?php echo $value['office']?></td>
-				<td name="address"><?php echo $value['address']?></td>
-				<td name="phone"><?php echo $value['phone']?></td>
-				<td class="tth"><button  class="btn btn-warning mybtn2" type="submit" name="it" value="<?php echo $value['id']?>">更改</button><button class="btn btn-danger mybtn2"type="submit" name="id" value="<?php echo $value['id']?>" >删除</button></td>
-
-			</tr>
-		</form>
-	<?php
+				echo "数据不存在";
 			}
-		}	
-	?>
-</table>
-
-</div>
-<br>
-<footer>
-		<p class="text-center">©2016-2025 sues.edu.cn,All Rights Reserved. </p>
-</footer>
-</body>
-
+			else
+			{
+				foreach ($data as $value) 
+				{
+		?>
+				<tr>
+					<td><?php echo $value['department']?></td>
+					<td><?php echo $value['office']?></td>
+					<td><?php echo $value['address']?></td>
+					<td><?php echo $value['phone']?></td>
+				</tr>
+		<?php
+				}
+			}	
+		?>
+	</table>
+	</div>
+	
+	</body>
 </html>
