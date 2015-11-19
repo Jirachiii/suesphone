@@ -102,7 +102,9 @@
 	?>
 		</select>
 		<input class="btn btn-primary" type="submit" value="查询">
-		<a href="add.php" class="btn btn-primary pull-right">添加</a>	
+		<a href="add.php" class="btn btn-primary pull-right">添加</a>
+		<span class="pull-right">&nbsp;</span>
+		<input type="button" value="显示全部" onclick="window.location.href='admin_all.php'" class="btn btn-primary pull-right " >
 	</form>
 
 	</div>
