@@ -3,11 +3,11 @@
 	if(!isset($_SESSION["b"]))
 	{
 		$_SESSION["b"]="1";
-		$sql="select * from suesphone";
+		$sql="select * from suesphone order by department";
 	}
 	else if(empty($_GET["sel"]))
 	{
-		$sql="select * from suesphone";
+		$sql="select * from suesphone order by department";
 	}
 	else
 	{
@@ -74,79 +74,99 @@
 				width:2%;
 			}
 		</style>
-	<body>
-<nav class="navbar navbar-inverse mybar" role="navigation">
-		<div class="navbar-header">
-			
-			<a class="navbar-brand" >上海工程技术大学电话导航</a>
-		</div>
-		
-</nav>
-<div class="container">
-<form action="admin.php" method="get">
-	<select name="sel" name="sel" class="myselect">
-<?php
-	if(empty($datai))
-	{
-		echo "数据不存在";
-	}
-	else
-	{
-		foreach ($datai as $valuei) 
-		{
-?>	
-		<option value="<?php echo $valuei['department']?>"><?php echo $valuei['department']?></option>
-<?php
-		}
-	}		
-?>
-	</select>
-	<input class="btn btn-primary" type="submit" value="查询">
-	<a href="add.php" class="btn btn-primary pull-right">添加</a>	
-</form>
+<body onload="autoRowSpan(document.getElementById('tb'),0,0)">
+	<nav class="navbar navbar-inverse mybar" role="navigation">
+			<div class="navbar-header">
 
-</div>
-<br><br>
-	
+				<a class="navbar-brand" >上海工程技术大学电话导航</a>
+			</div>
 
-
-<div class="container">
-<table class="">
-	<tr>
-		<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th><th class="tth">操作</th>
-	</tr>
+	</nav>
+	<div class="container">
+	<form action="admin.php" method="get">
+		<select name="sel" name="sel" class="myselect">
 	<?php
-		if(empty($data))
+		if(empty($datai))
 		{
 			echo "数据不存在";
 		}
 		else
 		{
-			foreach ($data as $k=>$value) 
+			foreach ($datai as $valuei)
 			{
 	?>
-
-		<form onsubmit="return confirm('确定执行该操作吗？');"action="delete.handle.php" method="get">
-			<tr>
-				<td name="department"><?php echo $value['department']?></td>
-				<td name="office"><?php echo $value['office']?></td>
-				<td name="address"><?php echo $value['address']?></td>
-				<td name="phone"><?php echo $value['phone']?></td>
-				<td class="tth"><button  class="btn btn-warning mybtn2" type="submit" name="it" value="<?php echo $value['id']?>">更改</button><button class="btn btn-danger mybtn2"type="submit" name="id" value="<?php echo $value['id']?>" >删除</button></td>
-
-			</tr>
-		</form>
+			<option value="<?php echo $valuei['department']?>"><?php echo $valuei['department']?></option>
 	<?php
 			}
-		}	
+		}
 	?>
-</table>
+		</select>
+		<input class="btn btn-primary" type="submit" value="查询">
+		<a href="add.php" class="btn btn-primary pull-right">添加</a>
+		<span class="pull-right">&nbsp;</span>
+		<input type="button" value="显示全部" onclick="window.location.href='admin.php'" class="btn btn-primary pull-right" >
+	</form>
 
-</div>
-<br>
-<footer>
-		<p class="text-center">©2016-2025 sues.edu.cn,All Rights Reserved. </p>
-</footer>
+	</div>
+	<br><br>
+
+	<div class="container">
+	<table id="tb">
+		<tr>
+			<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th><th class="tth">操作</th>
+		</tr>
+		<?php
+			if(empty($data))
+			{
+				echo "数据不存在";
+			}
+			else
+			{
+				foreach ($data as $k=>$value)
+				{
+		?>
+
+			<form onsubmit="return confirm('确定执行该操作吗？');"action="delete.handle.php" method="get">
+				<tr>
+					<td name="department"><?php echo $value['department']?></td>
+					<td name="office"><?php echo $value['office']?></td>
+					<td name="address"><?php echo $value['address']?></td>
+					<td name="phone"><?php echo $value['phone']?></td>
+					<td class="tth"><button  class="btn btn-warning mybtn2" type="submit" name="it" value="<?php echo $value['id']?>">更改</button><button class="btn btn-danger mybtn2"type="submit" name="id" value="<?php echo $value['id']?>" >删除</button></td>
+
+				</tr>
+			</form>
+		<?php
+				}
+			}
+		?>
+	</table>
+
+	</div>
+	<br>
+	<footer>
+			<p class="text-center">©2016-2025 sues.edu.cn,All Rights Reserved. </p>
+	</footer>
 </body>
-
+	<script type="text/javascript">
+		function autoRowSpan(tb,row,col)
+		{
+			var lastValue="";
+			var value="";
+			var pos=1;
+			for(var i=row;i<tb.rows.length;i++)
+			{
+				value = tb.rows[i].cells[col].innerText;
+				if(lastValue == value)
+				{
+					tb.rows[i].deleteCell(col);
+					tb.rows[i-pos].cells[col].rowSpan = tb.rows[i-pos].cells[col].rowSpan+1;
+					pos++;
+				}else{
+					lastValue = value;
+					pos=1;
+				}
+			}
+		}
+	</script>
 </html>
