@@ -1,27 +1,27 @@
 <?php
-require_once("connect.php");
+require_once("../model/connect.php");
 if(empty($_GET)&&(!isset($_GET)))
 {
 	echo "<script> alert('出现异常，操作失败，请联系管理员');
-	window.location.href='admin.php';
+	window.history.back();
 		</script>";
 }
 else if(empty($_GET["department"]))
 {
 	echo "<script> alert('添加部门不能为空');
-	window.location.href='add.php';
+	window.history.back();
 		</script>";
 }
 else if(empty($_GET["office"]))
 {
 	echo "<script> alert('添加科室不能为空');
-	window.location.href='add.php';
+	window.history.back();
 		</script>";
 }
 else if(empty($_GET["phone"]))
 {
 	echo "<script> alert('添加电话不能为空');
-	window.location.href='add.php';
+	window.history.back();
 		</script>";
 }
 else
@@ -35,7 +35,7 @@ else
 	if($query)
 	{
 		echo "<script> alert('插入成功，现在返回管理员页面');
-		window.location.href='admin.php';
+		window.location.href='../view/phoneadmin/admin.php';
 			</script>";
 	}
 	else

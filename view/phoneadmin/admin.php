@@ -1,5 +1,5 @@
 <?php
-	require_once('connect.php');
+	require_once('../../model/connect.php');
 	if(!isset($_SESSION["b"]))
 	{
 		$_SESSION["b"]="1";
@@ -7,7 +7,14 @@
 	}
 	else if(empty($_GET["sel"]))
 	{
-		$sql="select * from suesphone order by department";
+		if($_SESSION["b"]=="1")
+		{
+			$sql="select * from suesphone order by department";
+		}
+		else
+		{
+			$sql="select * from suesphone where department='$_SESSION[b]'";
+		}
 	}
 	else
 	{
@@ -53,9 +60,9 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	    <meta name="keywords" content="">
 	    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-	    <link rel="stylesheet" href="css/bootstrap.css">
-	    <link rel="stylesheet" href="css/bootcss.css">
-	    <link rel="stylesheet" href="css/home.css">
+	    <link rel="stylesheet" href="../../css/bootstrap.css">
+	    <link rel="stylesheet" href="../../css/bootcss.css">
+	    <link rel="stylesheet" href="../../css/home.css">
 		<title>电话簿</title>
 	</head>
 		<style type="text/css">
@@ -102,9 +109,10 @@
 	?>
 		</select>
 		<input class="btn btn-primary" type="submit" value="查询">
-		<a href="add.php" class="btn btn-primary pull-right">添加</a>
-		<span class="pull-right">&nbsp;</span>
-		<input type="button" value="显示全部" onclick="window.location.href='admin.php'" class="btn btn-primary pull-right" >
+		<a href="add.php" class="btn btn-primary pull-right">添加条目</a>
+		<br>
+		<br>
+		<input type="button" value="显示全部" onclick="window.location.href='../../control/admin_all.php'" class="btn btn-primary pull-right" >
 	</form>
 
 	</div>
@@ -126,7 +134,7 @@
 				{
 		?>
 
-			<form onsubmit="return confirm('确定执行该操作吗？');"action="delete.handle.php" method="get">
+			<form onsubmit="return confirm('确定执行该操作吗？');"action="../../control/delete.handle.php" method="get">
 				<tr>
 					<td name="department"><?php echo $value['department']?></td>
 					<td name="office"><?php echo $value['office']?></td>

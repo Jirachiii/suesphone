@@ -1,5 +1,5 @@
 <?php
-require_once('connect.php');
+require_once('../../model/connect.php');
 if(!isset($_SESSION["a"]))
 {
 	$_SESSION["a"]="1";
@@ -53,9 +53,9 @@ else
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 	<meta name="keywords" content="">
 	<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/bootcss.css">
-	<link rel="stylesheet" type="text/css" href="css/home.css">
+	<link rel="stylesheet" href="../../css/bootstrap.css">
+	<link rel="stylesheet" href="../../css/bootcss.css">
+	<link rel="stylesheet" type="text/css" href="../../css/home.css">
 	<title>电话簿</title>
 
 	<style type="text/css">
@@ -94,7 +94,7 @@ else
 					?>
 				</select>
 				<input type="submit" value="确认" class="btn btn-primary ">
-				<input type="button" value="显示全部" onclick="window.location.href='all.php'" class="btn btn-primary " >
+				<input type="button" value="显示全部" onclick="window.location.href='../../control/all.php'" class="btn btn-primary " >
 
 			</form>
 
