@@ -3,13 +3,11 @@ require_once('../../model/connect.php');
 if(!isset($_SESSION["a"]))
 {
 	$_SESSION["a"]="1";
-	echo "<script>window.location.href='home_show.php'</script>";
-	exit;
+	$sql="select * from suesphone order by department";
 }
 else if(empty($_GET["sel"]))
 {
-	echo "<script>window.location.href='home_show.php'</script>";
-	exit;
+	$sql="select * from suesphone order by department";
 }
 else
 {

@@ -104,5 +104,48 @@ body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Micro
 }
 #select input{
 	border-radius: 20px;}
+.biaoge td{
+	height: 50px;
+	font-size: 1.5em;
+}
+.biaoge th{
+	height: 50px;
+	font-size: 1.5em;
+}
 
+.page a
+{	
+	border:#aaaadd 3px solid;
+	text-decoration: none;
+	padding:2px 5px 2px 5px;
+	
+	font-size: 0.6em;
+}
 
+.page span.current
+{
+	border:#000099 3px solid;
+	color:#fff;
+	background-color: #4646BC;
+	padding: 3px 5px;
+
+}
+
+.page span.disable
+{
+	border:#cfd5e1 1px solid;
+	padding:2px 5px 2px 5px;
+	margin: 2px;
+	color: #9D7979;
+
+}
+
+.page form
+{
+	display: inline;
+}
+
+.page input.text
+{
+	width: 40px;
+}

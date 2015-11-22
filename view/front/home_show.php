@@ -1,35 +1,5 @@
 <?php
 require_once('../../model/connect.php');
-if(!isset($_SESSION["a"]))
-{
-	$_SESSION["a"]="1";
-	echo "<script>window.location.href='home_show.php'</script>";
-	exit;
-}
-else if(empty($_GET["sel"]))
-{
-	echo "<script>window.location.href='home_show.php'</script>";
-	exit;
-}
-else
-{
-	$_SESSION["a"]=$_GET["sel"];
-	$sql="select * from suesphone where department='$_SESSION[a]'";
-}
-
-$query=mysqli_query($con,$sql);
-if($query&&mysqli_num_rows($query))
-{
-	while($row = mysqli_fetch_assoc($query))
-	{
-		$data[] = $row;
-	}
-}
-else
-{
-	echo "请求不存在";
-	exit;
-}
 
 $sqli="select distinct department from suesphone";
 $queryi=mysqli_query($con,$sqli);
@@ -102,33 +72,50 @@ else
 
 		</div>
 		<div class="container mykuang" >
-			<table  id="tb" class="mycenter " >
+		<form method="get">
+			<table  id="tb" class="mycenter biaoge text-center" >
 				<tr>
-					<th>部门</th><th>科室</th><th>地址</th><th>电话号码</th>
+					<th class="text-center" colspan = "2">部门</th>
 				</tr>
 				<?php
-				if(empty($data))
+				if(empty($datai))
 				{
 					echo "数据不存在";
 				}
 				else
 				{
-					foreach ($data as $index=>$value)
+					foreach ($datai as $index=>$value)
 					{
 						// $depart[$index]=$value['department'];
 						// $onerow[$index]=array($value["department"],$value["office"],$value["address"],$value["phone"]);
-						?>
-						<tr>
-							<td name="<?php echo $value['department']?>"><?php echo $value['department']?></td>
-							<td><?php echo $value['office']?></td>
-							<td><?php echo $value['address']?></td>
-							<td><a href="tel:<?php echo $value['phone']?>"><?php echo $value['phone']?></a></td>
-						</tr>
-						<?php
+						if ($index%2==0) {
+							echo "<tr>";
+							
+							echo "<td > <a href='home.php?sel={$value['department']}'>{$value['department']}</a></td>";
+						
+						
+						}else{
+							
+							echo "<td > <a href='home.php?sel={$value['department']}'>{$value['department']}</a></td>";
+							echo "</tr>";
+
+
+						}
+
+						
 					}
+					if(count($datai)%2!=0){
+							echo "<td > <a> </a></td>";
+							echo "</tr>";
+						}
+
+
+
+
 				}
 				?>
 			</table>
+		</form>
 			<br><br><br>
 		</div>
 	</div>

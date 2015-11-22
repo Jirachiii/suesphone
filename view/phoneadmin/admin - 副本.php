@@ -1,36 +1,27 @@
 <?php
 	require_once('../../model/connect.php');
-
 	if(!isset($_SESSION["b"]))
 	{
 		$_SESSION["b"]="1";
-		$sql="select * from suesphone order by department limit $offset,$pagesize";
-		$total_sql="select count(*) from suesphone";
+		$sql="select * from suesphone order by department";
 	}
 	else if(empty($_GET["sel"]))
 	{
 		if($_SESSION["b"]=="1")
 		{
-			$sql="select * from suesphone order by department limit $offset,$pagesize";
-			$total_sql="select count(*) from suesphone";
+			$sql="select * from suesphone order by department";
 		}
 		else
 		{
-			$sql="select * from suesphone where department='$_SESSION[b]' limit $offset,$pagesize";
-			$total_sql="select count(*) from suesphone where department='$_SESSION[b]'";
+			$sql="select * from suesphone where department='$_SESSION[b]'";
 		}
 	}
 	else
 	{
 		$_SESSION["b"]=$_GET["sel"];
-		$sql="select * from suesphone where department='$_SESSION[b]' limit $offset,$pagesize";
-		$total_sql="select count(*) from suesphone where department='$_SESSION[b]'";
+		$sql="select * from suesphone where department='$_SESSION[b]'";
 	}
 	
-	$total_result=mysqli_fetch_array(mysqli_query($con,$total_sql));
-	$total=$total_result[0];
-	$total_page=ceil($total/$pagesize);
-
 	$query=mysqli_query($con,$sql);
 	if($query&&mysqli_num_rows($query))
 	{
@@ -123,83 +114,9 @@
 		<br>
 		<input type="button" value="显示全部" onclick="window.location.href='../../control/admin_all.php'" class="btn btn-primary pull-right" >
 	</form>
+
 	</div>
-	<br>
-
-	<!-- 分页条-->
-	<div class="container">
-	<?php
-		$page_banner="<div class='page'>";
-		$pageoffset=($showpage-1)/2;
-		$start=1;
-		$end=$total_page;
-
-		if($page>1)
-		{	
-			$page_banner.="<a href='".$_SERVER['PHP_SELF']."?p=1'>首页</a>";
-			$page_banner.="<a href='".$_SERVER['PHP_SELF']."?p=".($page-1)."'>上一页</a>";
-		}
-		else
-		{
-			$page_banner.="<span class='disable' >首页</span>";
-			$page_banner.="<span class='disable'>上一页</span>";
-		}
-		if($total_page>$showpage)
-			{
-				if($page>$pageoffset+1)
-				{
-					$page_banner.="...";
-				}
-				if($page>$pageoffset)
-				{
-					$start=$page-$pageoffset;
-					$end=$total_page>$page+$pageoffset?$page+$pageoffset:$total_page;
-				}
-				else
-				{
-					$start=1;
-					$end=$total_page>$showpage?$showpage:$total_page;
-				}
-				if($page+$pageoffset>$total_page)
-				{
-					$start=$start-($page+$pageoffset-$end);
-				}
-			}
-
-		for($i=$start;$i<=$end;$i++)
-		{
-			if($page==$i)
-			{
-				$page_banner.="<span class='current'>{$i}</span>";
-			}
-			else
-			{
-				$page_banner.="<a href='".$_SERVER['PHP_SELF']."?p=".$i."'>{$i}&nbsp;</a>";
-			}
-		}
-		if($total_page>$showpage&&$total_page>$page+$pageoffset)
-		{
-			$page_banner.="...";
-		}
-		if($page<$total_page)
-		{
-			$page_banner.="<a href='".$_SERVER['PHP_SELF']."?p=".($page+1)."'>下一页</a>";
-			$page_banner.="<a href='".$_SERVER['PHP_SELF']."?p=".($total_page)."'>尾页</a>";
-		}
-		else
-		{
-			$page_banner.="<span class='disable'>下一页</span>";
-			$page_banner.="<span class='disable'>尾页</span>";
-		}
-		$page_banner.="<br><br><br>"."总共{$total_page}页&nbsp;&nbsp;&nbsp;";
-		$page_banner.="<form action='admin.php' method='get'>";
-		$page_banner.="到第<input type='text' name='p' class='text'>页";
-		$page_banner.="<input type='submit' class='btn btn-primary' value='查询'>";
-		$page_banner.="</form></div>";
-		echo $page_banner;
-	?>
-	</div>
-	<br>
+	<br><br>
 
 	<div class="container">
 	<table id="tb">
@@ -234,7 +151,6 @@
 	</table>
 
 	</div>
-	<br>
 	<br>
 	<footer>
 			<p class="text-center">©2016-2025 sues.edu.cn,All Rights Reserved. </p>
